@@ -17,8 +17,8 @@ function formaterKunder(kunder) {
         ut += "<tr>" +
             "<td>" + kunde.navn + "</td>" +
             "<td>" + kunde.adresse + "</td>" +
-            "<td> hei </td>" +
-            "<td> hei </td>" +
+            "<td> <a class='btn btn-primary' href='endre.html?id=" + kunde.Id + "'>Endre</td>" +
+            "<td> <button class='btn btn-danger' onclick='slettKunde(" + kunde.Id + ")'>Slett</td>" +
             "</tr>";
     }
     ut += "</table>"
