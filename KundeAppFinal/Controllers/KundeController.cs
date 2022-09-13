@@ -73,11 +73,11 @@ namespace KundeAppFinal.Controllers
             }
         }
 
-        public bool Slett(int Id)
+        public bool Slett(int id)
         {
             try
             {
-                Kunde enKunde = _db.Kunder.Find(Id);
+                Kunde enKunde = _db.Kunder.Find(id);
                 _db.Kunder.Remove(enKunde);
                 _db.SaveChanges();
                 return true;

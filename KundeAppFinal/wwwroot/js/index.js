@@ -17,16 +17,16 @@ function formaterKunder(kunder) {
         ut += "<tr>" +
             "<td>" + kunde.navn + "</td>" +
             "<td>" + kunde.adresse + "</td>" +
-            "<td> <a class='btn btn-primary' href='endre.html?id=" + kunde.Id + "'>Endre</td>" +
-            "<td> <button class='btn btn-danger' onclick='slettKunde(" + kunde.Id + ")'>Slett</td>" +
+            "<td> <a class='btn btn-primary' href='endre.html?id=" + kunde.id + "'>Endre</a></td>" +
+            "<td> <button class='btn btn-danger' onclick='slettKunde(" + kunde.id + ")'>Slett</button></td>" +
             "</tr>";
     }
     ut += "</table>"
     $("#kundene").html(ut);
 }
 
-function slettKunde(id) {
-    const url = "Kunde/Slett=?id="+id;
+function slettKunde(Id) {
+    const url = "Kunde/Slett=?Id="+Id;
     $.get(url, function (OK) {
         if (OK) {
             window.location.href = 'index.html';
