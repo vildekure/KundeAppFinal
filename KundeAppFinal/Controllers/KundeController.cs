@@ -15,6 +15,51 @@ namespace KundeAppFinal.Controllers
             _db = db;
         }
 
+        public bool Lagre(Kunde innKunde)
+        {
+            try
+            {
+                _db.Kunder.Add(innKunde);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+
+        public Kunde HentEn(int Id)
+        {
+            try
+            {
+                Kunde enKunde = _db.Kunder.Find(Id);
+                return enKunde;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public bool Endre(Kunde endreKunde)
+        {
+            try
+            {
+                Kunde enKunde = _db.Kunder.Find(endreKunde.Id);
+                enKunde.navn = endreKunde.navn;
+                enKunde.adresse = endreKunde.adresse;
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public List<Kunde> HentAlle()
         {
             try
@@ -25,6 +70,21 @@ namespace KundeAppFinal.Controllers
             catch
             {
                 return null;
+            }
+        }
+
+        public bool Slett(int Id)
+        {
+            try
+            {
+                Kunde enKunde = _db.Kunder.Find(Id);
+                _db.Kunder.Remove(enKunde);
+                _db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

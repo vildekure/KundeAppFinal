@@ -24,3 +24,15 @@ function formaterKunder(kunder) {
     ut += "</table>"
     $("#kundene").html(ut);
 }
+
+function slettKunde(id) {
+    const url = "Kunde/Slett=?id="+id;
+    $.get(url, function (OK) {
+        if (OK) {
+            window.location.href = 'index.html';
+        }
+        else {
+            $("#feil").html("Feil i db, prøv igjen senere");
+        }
+    })
+}
