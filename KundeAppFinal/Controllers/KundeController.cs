@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using KundeApp2ver2.Models;
-using System.Linq;
+using KundeAppFinal.Models;
 
 namespace KundeAppFinal.Controllers
 {
@@ -21,6 +20,9 @@ namespace KundeAppFinal.Controllers
                 navn = "Line Jensen",
                 adresse = "Askerveien 82"
             };
+
+            kundene.Add(kunde1);
+            kundene.Add(kunde2);
 
             return kundene;
         }
