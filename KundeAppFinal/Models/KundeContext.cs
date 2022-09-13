@@ -2,9 +2,9 @@
 
 namespace KundeAppFinal.Models
 {
-    public class KundeDB : DbContext
+    public class KundeContext : DbContext
     {
-        public KundeDB (DbContextOptions<KundeDB> options) : base(options)
+        public KundeContext (DbContextOptions<KundeContext> options) : base(options)
         {
             Database.EnsureCreated();
         }

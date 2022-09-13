@@ -1,25 +1,25 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using KundeAppFinal.Models;
 using System.Linq;
+using KundeAppFinal.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KundeAppFinal.Controllers
 {
     [Route("[controller]/[action]")]
     public class KundeController : ControllerBase
     {
-        private readonly KundeDB _kundeDB;
+        private readonly KundeContext _db;
 
-        public KundeController(KundeDB kundeDB)
+        public KundeController(KundeContext db)
         {
-            _kundeDB = kundeDB;
+            _db = db;
         }
 
         public List<Kunde> HentAlle()
         {
             try
             {
-                List<Kunde> alleKundene = _kundeDB.Kunder.ToList();
+                List<Kunde> alleKundene = _db.Kunder.ToList();
                 return alleKundene;
             }
             catch
