@@ -30,12 +30,11 @@ namespace KundeAppFinal.Controllers
         }
 
 
-
-        public Kunde HentEn(int Id)
+        public Kunde HentEn(int id)
         {
             try
             {
-                Kunde enKunde = _db.Kunder.Find(Id);
+                Kunde enKunde = _db.Kunder.Find(id);
                 return enKunde;
             }
             catch
@@ -48,7 +47,7 @@ namespace KundeAppFinal.Controllers
         {
             try
             {
-                Kunde enKunde = _db.Kunder.Find(endreKunde.Id);
+                Kunde enKunde = _db.Kunder.Find(endreKunde.id);
                 enKunde.navn = endreKunde.navn;
                 enKunde.adresse = endreKunde.adresse;
                 _db.SaveChanges();

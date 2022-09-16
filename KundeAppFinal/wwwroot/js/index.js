@@ -17,8 +17,8 @@ function formaterKunder(kunder) {
         ut += "<tr>" +
             "<td>" + kunde.navn + "</td>" +
             "<td>" + kunde.adresse + "</td>" +
-            "<td> <a class='btn btn-primary' href='endre.html?Id=" + kunde.Id + "'>Endre</a></td>" +
-            "<td> <button class='btn btn-danger' onclick='slettKunde(" + kunde.Id + ")'>Slett</button></td>" +
+            "<td> <a class='btn btn-primary' href='endre.html?id=" + kunde.id + "'>Endre</a></td>" +
+            "<td> <button class='btn btn-danger' onclick='slettKunde(" + kunde.id + ")'>Slett</button></td>" +
             "</tr>";
     }
     ut += "</table>"
@@ -26,7 +26,7 @@ function formaterKunder(kunder) {
 }
 
 function slettKunde(id) {
-    const url = "Kunde/Slett?Id="+id;
+    const url = "Kunde/Slett?id="+id;
     $.get(url, function (OK) {
         if (OK) {
             window.location.href = 'index.html';
