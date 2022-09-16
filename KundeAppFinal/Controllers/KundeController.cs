@@ -21,7 +21,24 @@ namespace KundeAppFinal.Controllers
         {
             try
             {
-                _db.Kunder.Add(innKunde);
+                var nyKundeRad = new Kunder();
+                nyKundeRad.Fornavn = innKunde.Fornavn;
+                nyKundeRad.Etternavn = innKunde.Etternavn;
+                nyKundeRad.Adresse = innKunde.Adresse;
+
+                var sjekkPoststed = _db.Poststeder.Find(innKunde.Postnr);
+                if (sjekkPoststed == null)
+                {
+                    var nyPoststedsRad = new Poststeder();
+                    nyPoststedsRad.Postnr = innKunde.Postnr;
+                    nyPoststedsRad.Poststed = innKunde.Poststed;
+                    nyKundeRad.Poststed = nyPoststedsRad;
+                }
+                else
+                {
+                    nyKundeRad.Poststed = sjekkPoststed;
+                }
+                _db.Kunder.Add(nyKundeRad);
                 await _db.SaveChangesAsync();
                 return true;
             }
@@ -35,8 +52,17 @@ namespace KundeAppFinal.Controllers
         {
             try
             {
-                List<Kunde> alleKundene = await _db.Kunder.ToListAsync();
-                return alleKundene;
+                List<Kunde> alleKunder = await _db.Kunder.Select(k=> new Kunde
+                {
+                    Id = k.Id,
+                    Fornavn = k.Fornavn,
+                    Etternavn = k.Etternavn,
+                    Adresse = k.Adresse,
+                    Postnr = k.Poststed.Postnr,
+                    Poststed = k.Poststed.Poststed
+                }).ToListAsync();
+                
+                return alleKunder;
             }
             catch
             {
@@ -48,7 +74,7 @@ namespace KundeAppFinal.Controllers
         {
             try
             {
-                Kunde enKunde = await _db.Kunder.FindAsync(id);
+                Kunder enKunde = await _db.Kunder.FindAsync(id);
                 _db.Kunder.Remove(enKunde);
                 await _db.SaveChangesAsync();
                 return true;
@@ -63,8 +89,17 @@ namespace KundeAppFinal.Controllers
         {
             try
             {
-                Kunde enKunde = await _db.Kunder.FindAsync(id);
-                return enKunde;
+                Kunder enKunde = await _db.Kunder.FindAsync(id);
+                var hentetKunde = new Kunde()
+                {
+                    Id = enKunde.Id,
+                    Fornavn = enKunde.Fornavn,
+                    Etternavn = enKunde.Etternavn,
+                    Adresse = enKunde.Adresse,
+                    Postnr = enKunde.Poststed.Postnr,
+                    Poststed = enKunde.Poststed.Poststed
+                };
+                return hentetKunde;
             }
             catch
             {
@@ -76,9 +111,26 @@ namespace KundeAppFinal.Controllers
         {
             try
             {
-                Kunde enKunde = await _db.Kunder.FindAsync(endreKunde.id);
-                enKunde.navn = endreKunde.navn;
-                enKunde.adresse = endreKunde.adresse;
+                Kunder enKunde = await _db.Kunder.FindAsync(endreKunde.Id);
+
+                if(enKunde.Poststed.Postnr != endreKunde.Postnr)
+                {
+                    var sjekkPoststed = _db.Poststeder.Find(endreKunde.Postnr);
+                    if (sjekkPoststed == null)
+                    {
+                        var nyPoststedsRad = new Poststeder();
+                        nyPoststedsRad.Postnr = endreKunde.Postnr;
+                        nyPoststedsRad.Poststed = endreKunde.Poststed;
+                        enKunde.Poststed = nyPoststedsRad;
+                    }
+                    else
+                    {
+                        enKunde.Poststed = sjekkPoststed;
+                    }
+                }
+                enKunde.Fornavn = endreKunde.Fornavn;
+                enKunde.Etternavn = endreKunde.Etternavn;
+                enKunde.Adresse = endreKunde.Adresse;
                 await _db.SaveChangesAsync();
                 return true;
             }
