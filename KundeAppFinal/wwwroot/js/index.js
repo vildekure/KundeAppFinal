@@ -11,7 +11,7 @@ function hentAlleKunder() {
 function formaterKunder(kunder) {
     let ut = "<table class='table table-striped'" +
         "<tr>" +
-        "<th>Fornavn</th><th>Etternavn</th><th>Adresse</th><th>Postnr</th><th>Poststed</th><th></th><th></th>" +
+        "<th>Fornavn</th><th>Etternavn</th><th>Adresse</th><th>Postnr</th><th>Poststed</th><th>Test</th><th>Test</th>" +
         "</tr>";
     for (let kunde of kunder) {
         ut += "<tr>" +
