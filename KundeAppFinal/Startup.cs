@@ -36,6 +36,7 @@ namespace KundeAppFinal
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                DBInit.Initializer(app); // Denne må fjernes dersom vi vil beholde dataene i databasen og ikke initsialisering
             }
 
             app.UseRouting();
