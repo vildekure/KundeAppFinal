@@ -23,30 +23,54 @@ namespace KundeAppFinal.Controllers
             _log = log;
         }
 
-        public async Task<bool> Lagre(Kunde innKunde)
+        public async Task<ActionResult> Lagre(Kunde innKunde)
         {
-            return await _db.Lagre(innKunde);
+            bool returOK =  await _db.Lagre(innKunde);
+            if(!returOK)
+            {
+                _log.LogInformation("Kunden ble ikke lagret");
+                return BadRequest("Kunden ble ikke lagret");
+            }
+            return Ok("Kunde lagret");
         }
 
-        public async Task<List<Kunde>> HentAlle()
+        public async Task<ActionResult> HentAlle()
         {
-            _log.LogInformation("Test Log");
-            return await _db.HentAlle();
+            List<Kunde> alleKunder = await _db.HentAlle();
+            return Ok(alleKunder);
         }
 
-        public async Task<bool> Slett(int id)
+        public async Task<ActionResult> Slett(int id)
         {
-            return await _db.Slett(id);
+            bool returOK = await _db.Slett(id);
+            if (!returOK)
+            {
+                _log.LogInformation("Kunden ble ikke slettet");
+                return NotFound("Kunden ble ikke slettet");
+            }
+            return Ok("Kunde slettet");
         }
 
-        public async Task<Kunde> HentEn(int id)
+        public async Task<ActionResult> HentEn(int id)
         {
-            return await _db.HentEn(id);
+            Kunde enKunde = await _db.HentEn(id);
+            if (enKunde == null)
+            {
+                _log.LogInformation("Fant ikke Kunden");
+                return NotFound("Fant ikke kunden");
+            }
+            return Ok("Kunde funnet");
         }
 
-        public async Task<bool> Endre(Kunde endreKunde)
+        public async Task<ActionResult> Endre(Kunde endreKunde)
         {
-            return await _db.Endre(endreKunde);
+            bool returOK = await _db.Endre(endreKunde);
+            if (!returOK)
+            {
+                _log.LogInformation("Kunden ble ikke endret");
+                return NotFound("Kunden ble ikke endret");
+            }
+            return Ok("KJunden endret");
         }
 
     }
