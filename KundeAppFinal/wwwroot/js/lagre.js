@@ -7,12 +7,10 @@
         poststed: $("#poststed").val()
     }
     const url = "Kunde/Lagre";
-    $.post(url, kunde, function (OK) {
-        if (OK) {
-            window.location.href = 'index.html';
-        }
-        else {
-            $("#feil").html("Feil i db - prøv igjen senere");
-        }
+    $.post(url, kunde, function () {
+        window.location.href = 'index.html';
+    })
+    .fail(function () {
+        $("#feil").html("Feil på server - prøv igjen senere");
     });
 };

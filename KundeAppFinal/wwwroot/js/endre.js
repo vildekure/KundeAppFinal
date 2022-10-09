@@ -20,13 +20,11 @@ function endreKunde() {
         adresse: $("#adresse").val(),
         postnr: $("#postnr").val(),
         poststed: $("#poststed").val()
-    }
-    $.post("Kunde/Endre", kunde, function (OK) {
-        if (OK) {
-            window.location.href = 'index.html';
-        }
-        else {
-            $("#feil").html("Feil i db - prøv igjen senere");
-        }
+    };
+    $.post("Kunde/Endre", kunde, function () {
+        window.location.href = 'index.html';
+    })
+    .fail(function () {
+        $("#feil").html("Feil på server - prøv igjen senere");
     });
 };

@@ -30,12 +30,11 @@ function formaterKunder(kunder) {
 
 function slettKunde(id) {
     const url = "Kunde/Slett?id="+id;
-    $.get(url, function (OK) {
-        if (OK) {
-            window.location.href = 'index.html';
-        }
-        else {
-            $("#feil").html("Feil i db, prøv igjen senere");
-        }
+    $.get(url, function () {
+        window.location.href = 'index.html';
     })
+        .fail(function () {
+            $("#feil").html("Feil på server,  prøv igjen senere");
+        });
+      
 }
