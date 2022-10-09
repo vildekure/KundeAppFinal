@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using KundeAppFinal.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace KundeAppFinal.Models
+namespace KundeAppFinal.DAL
 {
     public class DBInit
     {
