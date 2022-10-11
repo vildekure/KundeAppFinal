@@ -25,13 +25,17 @@ namespace KundeAppFinal.Controllers
 
         public async Task<ActionResult> Lagre(Kunde innKunde)
         {
-            bool returOK =  await _db.Lagre(innKunde);
-            if(!returOK)
-            {
-                _log.LogInformation("Kunden ble ikke lagret");
-                return BadRequest("Kunden ble ikke lagret");
+            if (ModelState.IsValid) {
+                bool returOK = await _db.Lagre(innKunde);
+                if (!returOK)
+                {
+                    _log.LogInformation("Kunden ble ikke lagret");
+                    return BadRequest("Kunden ble ikke lagret");
+                }
+                return Ok("Kunde lagret");
             }
-            return Ok("Kunde lagret");
+            _log.LogInformation("Feil i inputvalidering");
+            return BadRequest("Feil i inputvalidering");
         }
 
         public async Task<ActionResult> HentAlle()
@@ -64,14 +68,18 @@ namespace KundeAppFinal.Controllers
 
         public async Task<ActionResult> Endre(Kunde endreKunde)
         {
-            bool returOK = await _db.Endre(endreKunde);
-            if (!returOK)
+            if (ModelState.IsValid)
             {
-                _log.LogInformation("Kunden ble ikke endret");
-                return NotFound("Kunden ble ikke endret");
+                bool returOK = await _db.Endre(endreKunde);
+                if (!returOK)
+                {
+                    _log.LogInformation("Kunden ble ikke endret");
+                    return NotFound("Kunden ble ikke endret");
+                }
+                return Ok("Kunden endret");
             }
-            return Ok("KJunden endret");
+            _log.LogInformation("Feil i inputvalidering");
+            return BadRequest("Feil i inputvalidering");
         }
-
     }
 }
