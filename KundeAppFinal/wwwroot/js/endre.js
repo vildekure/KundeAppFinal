@@ -12,6 +12,18 @@
     });
 });
 
+function validerOgEndreKunde() {
+    const fornavnOK = validerFornavn($("#fornavn").val());
+    const etternavnOK = validerEtternavn($("#etternavn").val());
+    const adresseOK = validerAdresse($("#adresse").val());
+    const postnrOK = validerPostnr($("#postnr").val());
+    const poststedOK = validerPoststed($("#poststed").val());
+    if (fornavnOK && etternavnOK && adresseOK && postnrOK && poststedOK) {
+        endreKunde();
+    }
+}
+
+
 function endreKunde() {
     const kunde = {
         id: $("#id").val(), // må ha med denne som ikke er endret for å vite kunde id. 
